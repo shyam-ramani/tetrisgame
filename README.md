@@ -1,7 +1,7 @@
-# 🎮 Tetris Game in C++ - The Ultimate Console Challenge!
+# 🎮 Tetris Game in C++
 
 A **classic Tetris game** built using **C++** and the Windows Console.  
-This ain't just a game, it's **a test of speed, reflexes, and strategic thinking!** 🧠💡
+This game allows the player to control falling blocks, clear rows, and score points.  
 
 ---
 
@@ -13,16 +13,14 @@ This ain't just a game, it's **a test of speed, reflexes, and strategic thinking
   ✅ Real-time keyboard controls  
   ✅ Score tracking  
   ✅ Game pause & restart  
-  ✅ Smooth animations & instant drop feature  
-  ✅ Classic game mechanics with a nostalgic console touch! 🎮  
 
 ---
 
 ## 🚀 **Step 1: Prerequisites**
-Before you dive into this **epic battle of blocks**, make sure you have:
+Before running the game, ensure you have:  
 
 - **A C++ compiler** (like **g++ from MinGW** or **Microsoft Visual Studio**)  
-- **A Windows operating system** (since we use `windows.h`)  
+- **A Windows operating system** (as the game uses `windows.h`)  
 - **Git installed** (for cloning the repository)  
 
 ---
@@ -45,72 +43,126 @@ Before you dive into this **epic battle of blocks**, make sure you have:
    ```sh
    git clone https://github.com/your-username/Tetris-Game.git
    ```
-3. **Navigate to the project directory:**  
+3. **Navigate to the project folder:**  
    ```sh
    cd Tetris-Game
    ```
 
 ---
 
-## ⚙️ **Step 3: Compilation and Execution**
-1. **Open the terminal or command prompt inside the project folder.**
-2. **Compile the game using g++:**  
+## ▶️ **Step 3: Compilation and Execution**
+
+1. **Compile the game using g++ (MinGW or any C++ compiler):**  
    ```sh
-   g++ tetris.cpp -o tetris.exe
+   g++ -o tetris tetris.cpp -std=c++11
    ```
-3. **Run the game:**  
+
+2. **Run the game:**  
    ```sh
-   tetris.exe
+   ./tetris
    ```
-4. **Enjoy the Tetris madness!** 🚀💥
 
 ---
 
-## 🎮 **Game Controls**
+## 🎮 **Controls**
 | Key | Action |
-|------|--------------|
-| ←    | Move left    |
-| →    | Move right   |
-| ↓    | Soft drop    |
-| ↑    | Rotate piece |
-|Space | Hard drop    |
-| P    | Pause/Resume |
-| R    | Restart game |
-| Q    | Quit game    |
-
-**Remember:** Every block you place **matters**—plan wisely, or you’ll be buried under a digital avalanche! ⏳⚡
-
----
-
-## 🏆 **Scoring System**
-- 1 line cleared = **100 points**  
-- 2 lines cleared = **300 points**  
-- 3 lines cleared = **500 points**  
-- 4 lines cleared (TETRIS!) = **800 points** 🔥🔥🔥  
-- Hard drop bonus for instant placement!  
+|-----|--------|
+| ⬅️  | Move Left |
+| ➡️  | Move Right |
+| ⬇️  | Move Down |
+| ⬆️  | Rotate Piece |
+| Space | Hard Drop |
+| P | Pause |
+| Q | Quit |
+| R | Restart |
 
 ---
 
 ## 🔍 **Function Breakdown**
-Here’s what makes the magic happen behind the scenes:
 
-### **🎲 `Piece` Class**
-Manages individual Tetris blocks and their rotations.
-- `resetShape()`: Initializes piece shape.
-- `rotate()`: Rotates the current piece if space allows.
+### 🎯 **1. `resetShape()`**
+📌 **Purpose:** Initializes the shape of a new Tetris piece based on its type (I, O, T, S, Z, J, L).
 
-### **🕹️ `Game` Class**
-Handles the game logic, drawing, and user input.
-- `draw()`: Renders the game board.
-- `update()`: Moves the block down automatically.
-- `handleInput()`: Detects and responds to user key presses.
-- `canMove()`: Checks if a piece can move to a new position.
-- `lockPiece()`: Locks a piece when it lands and spawns a new one.
-- `clearLines()`: Removes completed lines and updates the score.
-- `gameOver()`: Ends the game if no space remains.
+🔹 **How it works:**
+- Clears the 4x4 shape matrix by setting all values to `' '`.
+- Fills in the matrix based on the type of the piece.
+
+---
+
+### 🖥 **2. `draw()`**
+📌 **Purpose:** Displays the game board, current piece, score, and controls.
+
+🔹 **How it works:**
+- Moves the console cursor to prevent flickering.
+- Loops through the board and prints characters.
+- Displays the **current falling piece**.
+
+---
+
+### ⏳ **3. `update()`**
+📌 **Purpose:** Moves the piece down every few frames and locks it if it can't move further.
+
+🔹 **How it works:**
+- Increments a counter.
+- If the counter exceeds a threshold, the piece moves down.
+- If it **can't move**, it gets **locked into place**.
+
+---
+
+### 🎮 **4. `handleInput()`**
+📌 **Purpose:** Reads keyboard input and moves the piece accordingly.
+
+🔹 **How it works:**
+- Uses `_kbhit()` to check for key presses.
+- `_getch()` captures the key.
+- Handles movement, rotation, pausing, and quitting.
+
+---
+
+### ✅ **5. `canMove(int newX, int newY)`**
+📌 **Purpose:** Checks if the piece can move to a new position.
+
+🔹 **How it works:**
+- Loops through the **4x4 shape matrix**.
+- Checks if the new position is **within the board boundaries**.
+- Ensures the position is **not occupied**.
+
+---
+
+### 🔐 **6. `lockPiece()`**
+📌 **Purpose:** Places the piece permanently on the board after landing.
+
+🔹 **How it works:**
+- Copies the current shape into the **board matrix**.
+- Calls `clearLines()` to remove full rows.
+- Generates a **new random piece**.
+
+---
+
+### 🎆 **7. `rotate()`**
+📌 **Purpose:** Rotates the piece 90 degrees clockwise.
+
+🔹 **How it works:**
+- Creates a **temporary rotated matrix**.
+- Copies the rotated values into `current.shape`.
+- Checks if the rotation is **valid** before applying.
+
+---
+
+## 🏆 **Score Calculation**
+- **Single Line Clear** → +100 points  
+- **Double Line Clear** → +300 points  
+- **Triple Line Clear** → +500 points  
+- **Tetris (4 lines cleared at once!)** → +800 points 🎉  
 
 ---
 
 
+## 💡 **Future Enhancements**
+🔹 **Add Sound Effects** 🎵  
+🔹 **Implement Multiplayer Mode** 👥  
+🔹 **Custom Themes & Skins** 🎨  
 
-### 🚀 **Now go stack those blocks and chase the high score!** 🎮🔥
+
+
+🚀 **Enjoy Tetris and keep coding!** 🎮🔥
