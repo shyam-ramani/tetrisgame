@@ -116,38 +116,6 @@ Below is a breakdown of the main components of the game:
 
 ---
 
-## 🔧 **Troubleshooting**
-
-### **Game does not compile?**
-- Ensure you are using a **C++11 or newer** compiler.
-- Use **MinGW g++** or **Microsoft Visual Studio**.
-- Check that all necessary files are included.
-
-### **Game crashes on startup?**
-- Run the game from **Command Prompt (cmd)**, not directly from Explorer.
-- Ensure `windows.h` is available (only works on Windows).
-
----
-
-## 💪 **Contributing**
-1. **Fork the repository**
-2. **Create a new branch:**  
-   ```sh
-   git checkout -b feature-new-improvement
-   ```
-3. **Commit changes:**  
-   ```sh
-   git commit -m "Added new feature"
-   ```
-4. **Push to GitHub and create a pull request:**  
-   ```sh
-   git push origin feature-new-improvement
-   ```
-
----
-
-## 💌 **Contact & Support**
-If you encounter any issues or have suggestions, feel free to reach out via **GitHub Issues** or email: **your-email@example.com**  
 
 Happy coding! ✨
 
